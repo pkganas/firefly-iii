@@ -47,9 +47,10 @@ class IndexController extends Controller
                 return $next($request);
             }
         );
-        if (false === config('cer.enabled')) {
-            throw new NotFoundHttpException();
-        }
+        // Check if exchange rates are enabled - will be checked in individual methods
+        // if (false === config('cer.enabled')) {
+        //     throw new NotFoundHttpException();
+        // }
     }
 
     public function index(): View

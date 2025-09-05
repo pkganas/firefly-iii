@@ -729,6 +729,35 @@ Route::group(
 
 // USER
 
+// Test route
+Route::get('v1/test', function () {
+    return response()->json(['message' => 'Test route works']);
+});
+
+// User registration API routes (no authentication required):
+Route::group(
+    [
+        'namespace' => 'FireflyIII\Api\V1\Controllers\System',
+        'prefix'    => 'v1/register',
+        'as'        => 'api.v1.register.',
+    ],
+    static function (): void {
+        Route::post('', ['uses' => 'RegisterController@register', 'as' => 'store']);
+    }
+);
+
+// OAuth token API routes (no authentication required):
+Route::group(
+    [
+        'namespace' => 'FireflyIII\Api\V1\Controllers\System',
+        'prefix'    => 'v1/oauth',
+        'as'        => 'api.v1.oauth.',
+    ],
+    static function (): void {
+        Route::post('token', ['uses' => 'OAuthController@token', 'as' => 'token']);
+    }
+);
+
 // Preference API routes:
 Route::group(
     [

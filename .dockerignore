@@ -1,0 +1,53 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Development files
+.env.example
+.env.local
+.env.testing
+.phpunit.result.cache
+phpunit.xml
+tests/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+temp-docker/
+*.tmp
+*.log
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+
+# Composer
+composer.phar
+composer.lock
+
+# Storage and cache
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+bootstrap/cache/
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Allow routes directory to be copied
+!routes/

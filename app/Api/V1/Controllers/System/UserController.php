@@ -27,7 +27,9 @@ namespace FireflyIII\Api\V1\Controllers\System;
 use FireflyIII\Api\V1\Controllers\Controller;
 use FireflyIII\Api\V1\Requests\System\UserStoreRequest;
 use FireflyIII\Api\V1\Requests\System\UserUpdateRequest;
+use FireflyIII\Events\RegisteredUser;
 use FireflyIII\Exceptions\FireflyException;
+use FireflyIII\Notifications\Notifiables\OwnerNotifiable;
 use FireflyIII\Repositories\User\UserRepositoryInterface;
 use FireflyIII\Transformers\UserTransformer;
 use FireflyIII\User;
@@ -150,6 +152,12 @@ class UserController extends Controller
     {
         $data        = $request->getAll();
         $user        = $this->repository->store($data);
+        
+        // Fire the RegisteredUser event to trigger all necessary setup steps
+        // This ensures API-created users get the same setup as UI-created users
+        $owner = new OwnerNotifiable();
+        event(new RegisteredUser($owner, $user));
+        
         $manager     = $this->getManager();
 
         // make resource

@@ -57,6 +57,7 @@ class UserStoreRequest extends FormRequest
 
         return [
             'email'        => $this->convertString('email'),
+            'password'     => $this->convertString('password'),
             'blocked'      => $blocked,
             'blocked_code' => $this->convertString('blocked_code'),
             'role'         => $this->convertString('role'),
@@ -70,6 +71,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'email'        => 'required|email|unique:users,email',
+            'password'     => 'nullable|string|min:8',
             'blocked'      => [new IsBoolean()],
             'blocked_code' => 'in:email_changed',
             'role'         => 'in:owner,demo',

@@ -186,6 +186,11 @@ class Kernel extends HttpKernel
                 AcceptHeaders::class,
                 'bindings',
             ],
+            // API routes without authentication or CSRF
+            'api_noauth'            => [
+                AcceptHeaders::class,
+                'bindings',
+            ],
         ];
     protected $middlewarePriority
         = [

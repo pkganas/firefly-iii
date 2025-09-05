@@ -26,14 +26,62 @@ use Illuminate\Support\Facades\Route;
 // Cron job API routes:
 use FireflyIII\Http\Middleware\AcceptHeaders;
 
+// Simple test route
+Route::get('v1/simple-test', function () {
+    return response()->json(['message' => 'Simple test works']);
+});
+
+// User registration API routes (no authentication required):
+Route::group(
+    [
+        'namespace' => 'FireflyIII\Api\V1\Controllers\System',
+        'prefix'    => 'v1/register',
+        'as'        => 'api.v1.register.',
+    ],
+    static function (): void {
+        Route::post('', ['uses' => 'RegisterController@register', 'as' => 'store']);
+    }
+);
+
 Route::group(
     [
         'namespace'  => 'FireflyIII\Api\V1\Controllers\System',
-        'prefix'     => '',
+        'prefix'     => 'v1/cron',
         'as'         => 'api.v1.cron.',
         'middleware' => [AcceptHeaders::class],
     ],
     static function (): void {
         Route::get('{cliToken}', ['uses' => 'CronController@cron', 'as' => 'index']);
+    }
+);
+
+// Test route to debug authentication issue
+Route::get('v1/test', function () {
+    return response()->json(['message' => 'Test route works without authentication']);
+});
+
+// User registration API routes (no authentication required):
+Route::group(
+    [
+        'namespace' => 'FireflyIII\Api\V1\Controllers\System',
+        'prefix'    => 'v1/register',
+        'as'        => 'api.v1.register.',
+        'middleware' => [AcceptHeaders::class],
+    ],
+    static function (): void {
+        Route::post('', ['uses' => 'RegisterController@register', 'as' => 'store']);
+    }
+);
+
+// OAuth token API routes (no authentication required):
+Route::group(
+    [
+        'namespace' => 'FireflyIII\Api\V1\Controllers\System',
+        'prefix'    => 'v1/oauth',
+        'as'        => 'api.v1.oauth.',
+        'middleware' => [AcceptHeaders::class],
+    ],
+    static function (): void {
+        Route::post('token', ['uses' => 'OAuthController@token', 'as' => 'token']);
     }
 );

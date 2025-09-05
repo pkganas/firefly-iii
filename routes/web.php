@@ -1438,3 +1438,4 @@ Route::group(
         //        Route::post('set-order/{bill}', ['uses' => 'Bill\IndexController@setOrder', 'as' => 'set-order']);
     }
 );
+

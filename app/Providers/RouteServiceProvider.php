@@ -48,8 +48,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'))
             ;
 
-            Route::prefix('api/v1/cron')
-                ->middleware('api_basic')
+            Route::prefix('api')
+                ->middleware('api_noauth')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api-noauth.php'))
             ;
